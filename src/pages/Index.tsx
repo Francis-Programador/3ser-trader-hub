@@ -16,13 +16,18 @@ const stats = [
 const Index = () => {
   const [email, setEmail] = useState("");
 
-  useSEO({
-    title: "3SER Trader Sem Ré - Trading com Disciplina e Resultado",
-    description:
-      "Acompanhe uma jornada real no trading. Sem promessas falsas, sem guru. Apenas consistência, gestão e evolução. Aprenda com quem vive do trading.",
-    keywords: "trading, opções binárias, educação, aulas, resultados reais",
-    ogUrl: "https://3ser-trader.com",
-  });
+  // Envolver useSEO em try-catch para evitar quebrar a renderização
+  try {
+    useSEO({
+      title: "3SER Trader Sem Ré - Trading com Disciplina e Resultado",
+      description:
+        "Acompanhe uma jornada real no trading. Sem promessas falsas, sem guru. Apenas consistência, gestão e evolução. Aprenda com quem vive do trading.",
+      keywords: "trading, opções binárias, educação, aulas, resultados reais",
+      ogUrl: "https://3ser-trader.com",
+    });
+  } catch (error) {
+    console.warn('Failed to update SEO:', error);
+  }
 
   return (
     <Layout>
