@@ -1,6 +1,9 @@
-import { TrendingUp, TrendingDown, Target, BarChart3 } from "lucide-react";
+import { TrendingUp, TrendingDown, Target, BarChart3, ArrowRight, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
+import { historyEntries } from "./ResultadoDetalhe";
 
 const evolutionData = [
   { month: "Jan", capital: 1000 },
@@ -53,7 +56,7 @@ const Resultados = () => {
           </div>
 
           {/* Chart */}
-          <div className="glass rounded-xl p-6">
+          <div className="glass rounded-xl p-6 mb-12">
             <h2 className="font-heading font-bold text-xl mb-6">Evolução do Capital (R$)</h2>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
@@ -80,6 +83,41 @@ const Resultados = () => {
                   />
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Histórico */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-heading font-bold mb-6">
+              Histórico <span className="text-gradient-gold">Detalhado</span>
+            </h2>
+            <div className="space-y-4">
+              {historyEntries.map((entry) => (
+                <div key={entry.id} className="glass rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2">
+                      <Calendar className="h-4 w-4" />
+                      {entry.date}
+                    </div>
+                    <h3 className="font-heading font-bold text-lg">{entry.title}</h3>
+                    <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{entry.description}</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      entry.positive
+                        ? "bg-primary/10 text-primary"
+                        : "bg-destructive/10 text-destructive"
+                    }`}>
+                      {entry.result}
+                    </span>
+                    <Link to={`/resultados/${entry.id}`}>
+                      <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary/10 gap-2">
+                        Ver mais <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
