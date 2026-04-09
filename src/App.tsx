@@ -9,6 +9,7 @@ import Aulas from "./pages/Aulas";
 import Planilhas from "./pages/Planilhas";
 import Blog from "./pages/Blog";
 import Resultados from "./pages/Resultados";
+import ResultadoDetalhe from "./pages/ResultadoDetalhe";
 import Redes from "./pages/Redes";
 import Contato from "./pages/Contato";
 import NotFound from "./pages/NotFound";
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/planilhas" element={<Planilhas />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/resultados" element={<Resultados />} />
+            <Route path="/resultados/:id" element={<ResultadoDetalhe />} />
             <Route path="/redes" element={<Redes />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="*" element={<NotFound />} />

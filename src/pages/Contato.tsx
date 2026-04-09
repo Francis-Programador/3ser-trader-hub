@@ -1,15 +1,33 @@
 import { useState } from "react";
-import { Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, MessageCircle, Send, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 
 const Contato = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    try {
+      await fetch("https://formsubmit.co/ajax/3ser.tradersemre@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `Nova mensagem de ${form.name} - 3SER Trader`,
+        }),
+      });
+      setSent(true);
+    } catch {
+      alert("Erro ao enviar. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,7 +62,7 @@ const Contato = () => {
                 <Mail className="h-8 w-8 text-accent" />
                 <div>
                   <div className="font-heading font-bold text-sm">Email</div>
-                  <div className="text-xs text-muted-foreground">contato@3sertrader.com</div>
+                  <div className="text-xs text-muted-foreground">3ser.tradersemre@gmail.com</div>
                 </div>
               </div>
             </div>
@@ -80,9 +98,13 @@ const Contato = () => {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                   />
-                  <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-heading font-semibold glow-green gap-2">
-                    <Send className="h-4 w-4" />
-                    Enviar Mensagem
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-heading font-semibold glow-green gap-2"
+                  >
+                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                    {loading ? "Enviando..." : "Enviar Mensagem"}
                   </Button>
                 </form>
               ) : (
