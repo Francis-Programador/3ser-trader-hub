@@ -1,9 +1,9 @@
-import { Youtube, Instagram, MessageCircle, ExternalLink } from "lucide-react";
+import { Video, Camera, MessageCircle, ExternalLink } from "lucide-react";
 import Layout from "@/components/Layout";
 
 const socials = [
   {
-    icon: Youtube,
+    icon: Video,
     name: "YouTube",
     desc: "Aulas completas, análises ao vivo e diário de trading em vídeo.",
     handle: "@3sertrader",
@@ -12,7 +12,7 @@ const socials = [
     iconColor: "text-red-500",
   },
   {
-    icon: Instagram,
+    icon: Camera,
     name: "Instagram",
     desc: "Conteúdo diário, stories com operações e motivação para traders.",
     handle: "@3sertrader",

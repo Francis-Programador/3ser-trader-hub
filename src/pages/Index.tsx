@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BarChart3, BookOpen, Download, Youtube, Instagram, MessageCircle, Mail, TrendingUp, Target, Shield, Users } from "lucide-react";
+import { ArrowRight, BarChart3, BookOpen, Download, MessageCircle, TrendingUp, Target, Shield, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import Layout from "@/components/Layout";
@@ -183,8 +183,8 @@ const Index = () => {
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400" },
-              { icon: Instagram, label: "Instagram", href: "#", color: "hover:bg-pink-500/10 hover:border-pink-500/30 hover:text-pink-400" },
+              { icon: TrendingUp, label: "YouTube", href: "#", color: "hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400" },
+              { icon: Target, label: "Instagram", href: "#", color: "hover:bg-pink-500/10 hover:border-pink-500/30 hover:text-pink-400" },
               { icon: MessageCircle, label: "WhatsApp", href: "#", color: "hover:bg-green-500/10 hover:border-green-500/30 hover:text-green-400" },
             ].map((social) => (
               <a
