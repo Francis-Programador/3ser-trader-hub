@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import Layout from "@/components/Layout";
 import { useState } from "react";
+import { useSEO } from "@/hooks/use-seo";
 
 const stats = [
   { label: "Taxa de Acerto", value: "72%", icon: Target },
@@ -14,6 +15,14 @@ const stats = [
 
 const Index = () => {
   const [email, setEmail] = useState("");
+
+  useSEO({
+    title: "3SER Trader Sem Ré - Trading com Disciplina e Resultado",
+    description:
+      "Acompanhe uma jornada real no trading. Sem promessas falsas, sem guru. Apenas consistência, gestão e evolução. Aprenda com quem vive do trading.",
+    keywords: "trading, opções binárias, educação, aulas, resultados reais",
+    ogUrl: "https://3ser-trader.com",
+  });
 
   return (
     <Layout>
