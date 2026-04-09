@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Aulas from "./pages/Aulas";
 import Planilhas from "./pages/Planilhas";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Resultados from "./pages/Resultados";
 import ResultadoDetalhe from "./pages/ResultadoDetalhe";
 import Redes from "./pages/Redes";
