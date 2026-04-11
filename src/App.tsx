@@ -13,6 +13,7 @@ import Resultados from "./pages/Resultados";
 import ResultadoDetalhe from "./pages/ResultadoDetalhe";
 import Redes from "./pages/Redes";
 import Contato from "./pages/Contato";
+import Vip from "./pages/Vip";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/resultados" element={<Resultados />} />
             <Route path="/resultados/:id" element={<ResultadoDetalhe />} />
             <Route path="/redes" element={<Redes />} />
+            <Route path="/vip" element={<Vip />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

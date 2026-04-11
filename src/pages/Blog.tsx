@@ -1,6 +1,7 @@
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export interface BlogPost {
   id: string;
@@ -21,19 +22,7 @@ export const posts: BlogPost[] = [
     date: "2025-03-15",
     readTime: "5 min",
     category: "Mentalidade",
-    content: `Foi numa terça-feira aparentemente normal. O mercado abriu em tendência, eu acertei as duas primeiras operações e pensei: "Hoje é meu dia." Esse excesso de confiança foi o começo do fim.
-
-Comecei a aumentar o valor das operações sem seguir a gestão. Quando perdi a terceira, quis recuperar na quarta. E na quinta. E na sexta. Quando percebi, tinha perdido 40% de toda a minha banca em menos de 2 horas.
-
-A dor foi enorme. Não pela perda financeira em si, mas por saber que eu tinha descumprido TODAS as regras que eu mesmo tinha criado.
-
-**O que aprendi:**
-- Nunca operar no emocional
-- Definir um limite de perda diário e RESPEITAR
-- Parar depois de 2 perdas consecutivas
-- A banca é mais importante que qualquer operação
-
-Esse dia mudou minha forma de operar. Hoje, disciplina vem antes de qualquer setup.`,
+    content: `Foi numa terça-feira aparentemente normal. O mercado abriu em tendência, eu acertei as duas primeiras operações e pensei: "Hoje é meu dia." Esse excesso de confiança foi o começo do fim.\n\nComecei a aumentar o valor das operações sem seguir a gestão. Quando perdi a terceira, quis recuperar na quarta. E na quinta. E na sexta. Quando percebi, tinha perdido 40% de toda a minha banca em menos de 2 horas.\n\nA dor foi enorme. Não pela perda financeira em si, mas por saber que eu tinha descumprido TODAS as regras que eu mesmo tinha criado.\n\n**O que aprendi:**\n- Nunca operar no emocional\n- Definir um limite de perda diário e RESPEITAR\n- Parar depois de 2 perdas consecutivas\n- A banca é mais importante que qualquer operação\n\nEsse dia mudou minha forma de operar. Hoje, disciplina vem antes de qualquer setup.`,
     media: [
       { type: "youtube", url: "", caption: "Vídeo sobre o dia da perda" },
       { type: "image", url: "", caption: "Print do diário de operações" },
@@ -46,26 +35,7 @@ Esse dia mudou minha forma de operar. Hoje, disciplina vem antes de qualquer set
     date: "2025-03-10",
     readTime: "7 min",
     category: "Aprendizados",
-    content: `A estatística é cruel: cerca de 90% das pessoas que entram no trading perdem dinheiro. Mas por quê?
-
-Depois de 5 anos no mercado e conversando com centenas de traders, identifiquei os padrões mais comuns:
-
-**1. Falta de gestão de banca**
-A maioria entra sem saber quanto pode arriscar por operação. Colocam 10%, 20% da banca numa única entrada.
-
-**2. Operar por emoção**
-Ganhou? Quer ganhar mais. Perdeu? Quer recuperar. Esse ciclo é o maior destruidor de bancas.
-
-**3. Não ter um plano**
-Operar sem regras claras é como dirigir sem GPS. Você até pode chegar a algum lugar, mas provavelmente não será onde queria.
-
-**4. Pular etapas**
-Muitos vão direto para conta real sem passar pela demo. Ou pulam o estudo e querem operar só copiando sinais.
-
-**5. Expectativas irreais**
-Achar que vai ficar rico em 30 dias. Trading é uma maratona, não uma corrida de 100 metros.
-
-A boa notícia? Você pode estar nos 10% que sobrevivem. Basta ter disciplina, estudar e respeitar o processo.`,
+    content: `A estatística é cruel: cerca de 90% das pessoas que entram no trading perdem dinheiro. Mas por quê?\n\nDepois de 5 anos no mercado e conversando com centenas de traders, identifiquei os padrões mais comuns:\n\n**1. Falta de gestão de banca**\nA maioria entra sem saber quanto pode arriscar por operação.\n\n**2. Operar por emoção**\nGanhou? Quer ganhar mais. Perdeu? Quer recuperar.\n\n**3. Não ter um plano**\nOperar sem regras claras é como dirigir sem GPS.\n\n**4. Pular etapas**\nMuitos vão direto para conta real sem passar pela demo.\n\n**5. Expectativas irreais**\nAchar que vai ficar rico em 30 dias.\n\nA boa notícia? Você pode estar nos 10% que sobrevivem.`,
     media: [],
   },
   {
@@ -75,30 +45,8 @@ A boa notícia? Você pode estar nos 10% que sobrevivem. Basta ter disciplina, e
     date: "2025-03-05",
     readTime: "4 min",
     category: "Experiências",
-    content: `Ter uma rotina é essencial para manter a consistência no trading. Aqui está como organizo meu dia:
-
-**6h30 - Acordo e café**
-Nada de tela logo cedo. Café, alongamento e mente limpa.
-
-**7h00 - Análise do mercado**
-Verifico o calendário econômico, notícias relevantes e identifico os pares mais interessantes.
-
-**8h00 - Abertura da sessão de Londres**
-É quando começo a observar. Espero formações claras antes de entrar.
-
-**9h00 - 11h00 - Janela operacional**
-Minhas melhores operações acontecem nesse horário. Foco total, sem distrações.
-
-**11h00 - Registro no diário**
-Anoto TODAS as operações: entrada, saída, motivo, emoção, resultado. Isso é ouro para evolução.
-
-**Tarde - Estudo e revisão**
-Reviso operações passadas, estudo padrões novos e preparo a análise do dia seguinte.
-
-A consistência não vem de uma operação genial. Vem de fazer o básico bem feito, todos os dias.`,
-    media: [
-      { type: "youtube", url: "", caption: "Um dia na minha rotina" },
-    ],
+    content: `Ter uma rotina é essencial para manter a consistência no trading.\n\n**6h30 - Acordo e café**\nNada de tela logo cedo. Café, alongamento e mente limpa.\n\n**7h00 - Análise do mercado**\nVerifico o calendário econômico e notícias relevantes.\n\n**8h00 - Abertura da sessão de Londres**\nÉ quando começo a observar. Espero formações claras.\n\n**9h00 - 11h00 - Janela operacional**\nMinhas melhores operações acontecem nesse horário.\n\n**11h00 - Registro no diário**\nAnoto TODAS as operações.\n\nA consistência não vem de uma operação genial. Vem de fazer o básico bem feito, todos os dias.`,
+    media: [{ type: "youtube", url: "", caption: "Um dia na minha rotina" }],
   },
   {
     id: "martingale-armadilha",
@@ -107,23 +55,7 @@ A consistência não vem de uma operação genial. Vem de fazer o básico bem fe
     date: "2025-02-28",
     readTime: "6 min",
     category: "Erros",
-    content: `Martingale: dobrar o valor após cada perda para recuperar tudo na próxima vitória. Na teoria parece perfeito. Na prática, é um caminho para a destruição da banca.
-
-Eu usei martingale por 3 meses. No início, parecia mágico — sempre recuperava. Mas bastou uma sequência de 5 perdas seguidas para perder tudo que tinha ganho no mês.
-
-**O problema matemático:**
-- 1ª entrada: R$ 10
-- 2ª entrada: R$ 20
-- 3ª entrada: R$ 40
-- 4ª entrada: R$ 80
-- 5ª entrada: R$ 160
-
-Total arriscado: R$ 310 para recuperar R$ 10 de lucro. O risco/retorno é absurdo.
-
-**O que uso no lugar:**
-Gestão fixa de 1-2% da banca por operação. Sem recuperação, sem dobrar. Se perdi, aceito e sigo o plano.
-
-Martingale funciona até o dia que não funciona. E nesse dia, você perde tudo.`,
+    content: `Martingale: dobrar o valor após cada perda para recuperar tudo na próxima vitória. Na teoria parece perfeito. Na prática, é um caminho para a destruição da banca.\n\nEu usei martingale por 3 meses. No início, parecia mágico. Mas bastou uma sequência de 5 perdas seguidas para perder tudo.\n\n**O que uso no lugar:**\nGestão fixa de 1-2% da banca por operação. Sem recuperação, sem dobrar.\n\nMartingale funciona até o dia que não funciona. E nesse dia, você perde tudo.`,
     media: [],
   },
   {
@@ -133,69 +65,65 @@ Martingale funciona até o dia que não funciona. E nesse dia, você perde tudo.
     date: "2025-02-20",
     readTime: "5 min",
     category: "Resultados",
-    content: `Após meses de altos e baixos, finalmente consegui 3 meses consecutivos positivos. Não foi sorte — foi mudança de mentalidade.
-
-**O que mudei:**
-
-**1. Reduzi o número de operações**
-De 15-20 por dia para 3-5. Menos é mais quando cada entrada é bem pensada.
-
-**2. Comecei a usar diário de trading**
-Registrar cada operação me fez perceber padrões que eu não via antes.
-
-**3. Defini limites rígidos**
-Máximo de 2% por operação. Stop diário de 5%. Se bateu, desligo a tela.
-
-**4. Foquei em poucos pares**
-Em vez de operar tudo, foquei em EUR/USD e GBP/USD. Conhecer bem 2 pares é melhor que operar mal em 10.
-
-**5. Aceitei as perdas**
-Perder faz parte. O que importa é o resultado no final do mês, não de cada operação.
-
-O resultado? +12%, +8%, +15% nos últimos 3 meses. Nada espetacular, mas CONSISTENTE. E consistência é tudo.`,
-    media: [
-      { type: "image", url: "", caption: "Resultado dos 3 meses" },
-    ],
+    content: `Após meses de altos e baixos, finalmente consegui 3 meses consecutivos positivos.\n\n**O que mudei:**\n1. Reduzi operações de 15-20 para 3-5 por dia\n2. Comecei a usar diário de trading\n3. Defini limites rígidos (2% por operação, 5% stop diário)\n4. Foquei em poucos pares (EUR/USD e GBP/USD)\n5. Aceitei as perdas\n\nO resultado? +12%, +8%, +15% nos últimos 3 meses. Nada espetacular, mas CONSISTENTE.`,
+    media: [{ type: "image", url: "", caption: "Resultado dos 3 meses" }],
   },
 ];
 
+const categoryColors: Record<string, string> = {
+  Mentalidade: "bg-accent/10 text-accent",
+  Aprendizados: "bg-primary/10 text-primary",
+  Experiências: "bg-primary/10 text-primary",
+  Erros: "bg-destructive/10 text-destructive",
+  Resultados: "bg-primary/10 text-primary",
+};
+
 const Blog = () => {
+  useScrollReveal();
+
   return (
     <Layout>
-      <section className="py-20">
+      <section className="py-24">
         <div className="container">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-heading font-bold mb-4">
+          <div className="text-center mb-16 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+              <BookOpen className="h-4 w-4" />
+              Diário do Trader
+            </div>
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
               Histórias da <span className="text-gradient-gold">Jornada</span>
             </h1>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Experiências reais, erros, acertos e a mentalidade que faz a diferença no trading.
+            <p className="text-muted-foreground max-w-lg mx-auto text-lg">
+              Experiências reais, erros, acertos e a mentalidade que faz a diferença.
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-6">
-            {posts.map((post) => (
+            {posts.map((post, i) => (
               <Link key={post.id} to={`/blog/${post.id}`}>
-                <article className="glass rounded-xl p-6 hover:border-primary/30 transition-all cursor-pointer group mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs px-2 py-1 rounded bg-primary/10 text-primary font-medium">
+                <article
+                  className="reveal glass rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 cursor-pointer group card-hover mb-6"
+                  style={{ transitionDelay: `${i * 0.1}s` }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`text-xs px-3 py-1 rounded-full font-medium ${categoryColors[post.category] || "bg-secondary text-muted-foreground"}`}>
                       {post.category}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Calendar className="h-3 w-3" />
                       {new Date(post.date).toLocaleDateString("pt-BR")}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Clock className="h-3 w-3" />
                       {post.readTime}
                     </span>
                   </div>
-                  <h2 className="font-heading font-bold text-lg mb-2 group-hover:text-primary transition-colors">
+                  <h2 className="font-heading font-bold text-xl mb-3 group-hover:text-primary transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-muted-foreground text-sm mb-3">{post.excerpt}</p>
-                  <span className="inline-flex items-center gap-1 text-primary text-sm font-medium">
-                    Ler mais <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                  <span className="inline-flex items-center gap-2 text-primary text-sm font-heading font-semibold group-hover:gap-3 transition-all">
+                    Ler mais <ArrowRight className="h-4 w-4" />
                   </span>
                 </article>
               </Link>
