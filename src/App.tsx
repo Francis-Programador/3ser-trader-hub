@@ -13,6 +13,7 @@ import Resultados from "./pages/Resultados";
 import ResultadoDetalhe from "./pages/ResultadoDetalhe";
 import Redes from "./pages/Redes";
 import Contato from "./pages/Contato";
+import Vip from "./pages/Vip";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
