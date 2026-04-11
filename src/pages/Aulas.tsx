@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Play, Lock, BookOpen, X } from "lucide-react";
+import { Play, Lock, BookOpen, X, Crown, ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 type Level = "iniciante" | "intermediario" | "avancado";
 
@@ -32,10 +33,10 @@ const lessons: Record<Level, Lesson[]> = {
   ],
 };
 
-const levelLabels: Record<Level, string> = {
-  iniciante: "Iniciante",
-  intermediario: "Intermédio",
-  avancado: "Avançado",
+const levelConfig: Record<Level, { label: string; emoji: string; color: string }> = {
+  iniciante: { label: "Iniciante", emoji: "🟢", color: "primary" },
+  intermediario: { label: "Intermédio", emoji: "🟡", color: "accent" },
+  avancado: { label: "Avançado", emoji: "🔴", color: "destructive" },
 };
 
 function getYouTubeId(url: string): string {
@@ -46,17 +47,18 @@ function getYouTubeId(url: string): string {
 const Aulas = () => {
   const [activeLevel, setActiveLevel] = useState<Level>("iniciante");
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  useScrollReveal();
 
   return (
     <Layout>
       {/* Video modal */}
       {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm p-4" onClick={() => setActiveVideo(null)}>
-          <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4" onClick={() => setActiveVideo(null)}>
+          <div className="relative w-full max-w-4xl animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <button onClick={() => setActiveVideo(null)} className="absolute -top-12 right-0 text-muted-foreground hover:text-foreground transition-colors">
               <X className="h-8 w-8" />
             </button>
-            <div className="aspect-video rounded-xl overflow-hidden border border-border">
+            <div className="aspect-video rounded-2xl overflow-hidden border border-border glow-green">
               <iframe
                 src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0`}
                 title="Aula"
@@ -69,36 +71,41 @@ const Aulas = () => {
         </div>
       )}
 
-      <section className="py-20">
+      <section className="py-24">
         <div className="container">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
+          {/* Header */}
+          <div className="text-center mb-16 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
               <BookOpen className="h-4 w-4" />
-              Central de Aulas
+              Central de Cursos
             </div>
-            <h1 className="text-4xl font-heading font-bold mb-4">
-              Aprenda trading do <span className="text-gradient-neon">zero ao avançado</span>
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+              Do zero ao <span className="text-shimmer">profissional</span>
             </h1>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Conteúdo organizado por nível para você evoluir no seu ritmo.
+            <p className="text-muted-foreground max-w-lg mx-auto text-lg">
+              Conteúdo organizado por nível para evoluíres no teu ritmo.
             </p>
           </div>
 
           {/* Level tabs */}
-          <div className="flex justify-center gap-2 mb-12">
-            {(Object.keys(lessons) as Level[]).map((level) => (
-              <button
-                key={level}
-                onClick={() => setActiveLevel(level)}
-                className={`px-6 py-2.5 rounded-lg font-heading font-semibold text-sm transition-all ${
-                  activeLevel === level
-                    ? "bg-primary text-primary-foreground glow-green"
-                    : "bg-secondary text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {levelLabels[level]}
-              </button>
-            ))}
+          <div className="flex justify-center gap-3 mb-16 reveal">
+            {(Object.keys(lessons) as Level[]).map((level) => {
+              const config = levelConfig[level];
+              return (
+                <button
+                  key={level}
+                  onClick={() => setActiveLevel(level)}
+                  className={`px-6 py-3 rounded-xl font-heading font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${
+                    activeLevel === level
+                      ? "bg-primary text-primary-foreground glow-green scale-105"
+                      : "bg-secondary/80 text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  <span>{config.emoji}</span>
+                  {config.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Lessons grid */}
@@ -110,12 +117,13 @@ const Aulas = () => {
               return (
                 <div
                   key={i}
-                  className={`glass rounded-xl overflow-hidden transition-all ${
-                    lesson.locked ? "opacity-60" : "hover:border-primary/30"
+                  className={`reveal glass rounded-2xl overflow-hidden transition-all duration-300 card-hover ${
+                    lesson.locked ? "opacity-60" : ""
                   }`}
+                  style={{ transitionDelay: `${i * 0.1}s` }}
                 >
-                  {/* YouTube thumbnail */}
-                  {hasVideo && (
+                  {/* Thumbnail */}
+                  {hasVideo ? (
                     <button
                       onClick={() => setActiveVideo(videoId)}
                       className="relative w-full aspect-video bg-secondary group cursor-pointer"
@@ -132,26 +140,31 @@ const Aulas = () => {
                         </div>
                       </div>
                     </button>
+                  ) : (
+                    <div className="relative w-full aspect-video bg-gradient-to-br from-secondary to-card flex items-center justify-center">
+                      {lesson.locked ? (
+                        <Lock className="h-10 w-10 text-accent/50" />
+                      ) : (
+                        <Play className="h-10 w-10 text-primary/30" />
+                      )}
+                      {lesson.locked && (
+                        <span className="absolute top-3 right-3 text-xs font-heading font-semibold bg-accent/20 text-accent px-2 py-1 rounded flex items-center gap-1">
+                          <Crown className="h-3 w-3" /> VIP
+                        </span>
+                      )}
+                    </div>
                   )}
 
                   <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      {!hasVideo && (
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                          {lesson.locked ? (
-                            <Lock className="h-5 w-5 text-accent" />
-                          ) : (
-                            <Play className="h-5 w-5 text-primary" />
-                          )}
-                        </div>
-                      )}
-                      <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded ml-auto">{lesson.duration}</span>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs text-muted-foreground bg-secondary/80 px-2.5 py-1 rounded-md">{lesson.duration}</span>
+                      {lesson.locked && <Lock className="h-4 w-4 text-accent" />}
                     </div>
-                    <h3 className="font-heading font-bold mb-2">{lesson.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{lesson.desc}</p>
+                    <h3 className="font-heading font-bold text-lg mb-2">{lesson.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{lesson.desc}</p>
                     {lesson.locked ? (
-                      <span className="inline-flex items-center gap-1 text-accent text-sm font-medium">
-                        <Lock className="h-3 w-3" /> Conteúdo VIP (em breve)
+                      <span className="inline-flex items-center gap-1.5 text-accent text-sm font-medium">
+                        <Crown className="h-3.5 w-3.5" /> Conteúdo VIP (em breve)
                       </span>
                     ) : hasVideo ? (
                       <Button
@@ -160,7 +173,7 @@ const Aulas = () => {
                         className="border-primary/30 text-primary hover:bg-primary/10 gap-2"
                         onClick={() => setActiveVideo(videoId)}
                       >
-                        <Play className="h-4 w-4" /> Assistir
+                        <Play className="h-4 w-4" /> Assistir Aula
                       </Button>
                     ) : (
                       <span className="text-xs text-muted-foreground italic">Vídeo em breve</span>
